@@ -2,20 +2,19 @@ package com.company.HomeWork;
 
 public class ABC {
 
-
         static final Object object = new Object();
-        static String currentLetter = "A";
+        static String currentLetter =  "A";
 
         public static void main(String[] args) {
             new Thread(() -> {
                 try {
                     for (int i = 0; i < 5; i++) {
                         synchronized (object) {
-                            while (!currentLetter.equals("A")) {
+                            while (!currentLetter.equals( "A")) {
                                 object.wait();
                             }
                             System.out.print(currentLetter);
-                            currentLetter = "B";
+                            currentLetter =  "B";
                             object.notifyAll();
                         }
                     }
