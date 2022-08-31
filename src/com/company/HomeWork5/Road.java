@@ -1,4 +1,5 @@
-package com.company.HomeWork2;
+package com.company.HomeWork5;
+
 
 public class Road extends Stage {
     public Road(int length) {

@@ -1,4 +1,4 @@
-package com.company.HomeWork2;
+package com.company.HomeWork5;
 
 public abstract class Stage {
     protected int length;

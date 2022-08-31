@@ -1,4 +1,4 @@
-package com.company.HomeWork2;
+package com.company.HomeWork5;
 
 
 public class MainClass {
@@ -13,11 +13,18 @@ public class MainClass {
         Car[] cars = new Car[CARS_COUNT];
         for (int i = 0; i < cars.length; i++) {
             cars[i] = new Car(race, 20 + (int) (Math.random() * 10));
+
         }
         for (int i = 0; i < cars.length; i++) {
+
             new Thread(cars[i]).start();
+
+
         }
+
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
+
     }
+
 }
