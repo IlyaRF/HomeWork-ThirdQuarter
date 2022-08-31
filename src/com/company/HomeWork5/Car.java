@@ -2,7 +2,8 @@ package com.company.HomeWork5;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Car implements Runnable {
+
+public class Car<isWinner> implements Runnable {
     private static int CARS_COUNT;
 
     static {
@@ -13,6 +14,7 @@ public class Car implements Runnable {
     private Race race;
     private int speed;
     private String name;
+    private static boolean isWinner;
 
     public String getName() {
         return name;
@@ -32,20 +34,17 @@ public class Car implements Runnable {
 
     @Override
     public void run() {
-        CountDownLatch cdl= new  CountDownLatch(CARS_COUNT);
+
+
         try {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int) (Math.random() * 800));
-            System.out.println(this.name + " готов");
-            cdl.countDown();
 
+            System.out.println(this.name + " готов");
+            MainClass.Start.countDown();
+            MainClass.cyclicBarrier.await();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        try {
-            cdl.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
 
         for (int i = 0; i < race.getStages().size(); i++) {
@@ -54,5 +53,12 @@ public class Car implements Runnable {
 
             race.getStages().get(i).go(this);
         }
+        MainClass.winnerLock.lock();
+        if (!isWinner) {
+        System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> " + this.name + " - ПОБЕДИТЕЛЬ!!!");
+        isWinner = true;
+    }
+        MainClass.winnerLock.unlock();
+        MainClass.Finish.countDown();
     }
 }
